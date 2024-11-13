@@ -154,7 +154,7 @@
                 include_once '../../../include/database.php';
                 $code = connect();
                 $file = time().".jpg";
-                $tenFile = "C:/xampp/htdocs/Shop Vegetable/img/avatar/".$file;
+                $tenFile = "C:/xampp/htdocs/VegetableWeb/img/avatar/".$file;
                 $result = move_uploaded_file($_FILES['MinhTriFile']['tmp_name'], $tenFile);
                 $query =  "INSERT INTO user (email, name, password, phone, image, roleID )
                     VALUES ('$email', '$fullname', '$password', '$phone', '$file', '$roleID')";
@@ -162,7 +162,7 @@
                 mysqli_close($code);
                 if ($kq) {
                     echo '<script type="text/javascript">
-                            window.location.href = "/SHOP%20VEGETABLE/src/admin/user/show.php?page=1";
+                            window.location.href = "/VegetableWeb/src/admin/user/show.php?page=1";
                           </script>';
                     exit();
                 } else {

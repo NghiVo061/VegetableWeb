@@ -53,7 +53,7 @@
                                         <li class="list-group-item">
                                             Ảnh:
                                             <?php 
-                                                $image = "/Shop Vegetable/img/avatar/" . $row['image'];  
+                                                $image = "/VegetableWeb/img/avatar/" . $row['image'];  
                                                 ?>
                                             <img src="<?php echo $image; ?>" alt="Chưa có ảnh"
                                                 style="max-height: 250px;">
@@ -61,8 +61,8 @@
                                     </ul>
                                 </div>
 
-                                <a href="/SHOP%20VEGETABLE/src/admin/user/show.php?page=1"
-                                    class="btn btn-success mt-3">Trở về</a>
+                                <a href="/VegetableWeb/src/admin/user/show.php?page=1" class="btn btn-success mt-3">Trở
+                                    về</a>
 
                             </div>
 

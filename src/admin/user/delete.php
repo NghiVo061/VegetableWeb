@@ -54,7 +54,7 @@
                                             $query = "delete from user u where u.id = " .$id;
                                             delete($query);
                                                 echo '<script type="text/javascript">
-                                                        window.location.href = "/SHOP%20VEGETABLE/src/admin/user/show.php?page=1";
+                                                        window.location.href = "/VegetableWeb/src/admin/user/show.php?page=1";
                                                       </script>';
                                                 exit();
                                         }

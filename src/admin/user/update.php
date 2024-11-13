@@ -60,7 +60,7 @@
                 $file = "";
                 if (isset($_FILES['MinhTriFile']['tmp_name']) && !empty($_FILES['MinhTriFile']['tmp_name'])) {
                     $file = time() . ".jpg";
-                    $tenFile = "C:/xampp/htdocs/Shop Vegetable/img/avatar/" . $file;
+                    $tenFile = "C:/xampp/htdocs/VegetableWeb/img/avatar/" . $file;
                     move_uploaded_file($_FILES['MinhTriFile']['tmp_name'], $tenFile);
                 } else {
                     $file = $image;
@@ -68,7 +68,7 @@
                 $query = "UPDATE user SET email = '$email', name = '$fullname', phone = '$phone', image = '$file' WHERE id = '$id'";
                 if (update($query)) {
                     echo '<script type="text/javascript">
-                            window.location.href = "/SHOP%20VEGETABLE/src/admin/user/show.php?page=1";
+                            window.location.href = "/VegetableWeb/src/admin/user/show.php?page=1";
                           </script>';
                     exit();
                 } else {

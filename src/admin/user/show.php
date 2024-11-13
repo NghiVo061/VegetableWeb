@@ -32,7 +32,7 @@
                                 ?>
                                 <div class="d-flex justify-content-between">
                                     <h3>BẢNG NGƯỜI DÙNG</h3>
-                                    <a href="/SHOP%20VEGETABLE/src/admin/user/create.php" class="btn btn-primary">Tạo
+                                    <a href="/VegetableWeb/src/admin/user/create.php" class="btn btn-primary">Tạo
                                         người dùng mới</a>
                                 </div>
 
@@ -63,9 +63,9 @@
                                                     <td>{$user['name']}</td>
                                                     <td>{$user['phone']}</td>
                                                     <td>
-                                                        <a href='/SHOP%20VEGETABLE/src/admin/user/detail.php?id={$user['id']}' class='btn btn-success'>Xem chi tiết</a>
-                                                        <a href='/SHOP%20VEGETABLE/src/admin/user/update.php?id={$user['id']}' class='btn btn-warning mx-2'>Cập nhật</a>
-                                                        <a href='/SHOP%20VEGETABLE/src/admin/user/delete.php?id={$user['id']}' class='btn btn-danger'>Xóa</a>
+                                                        <a href='/VegetableWeb/src/admin/user/detail.php?id={$user['id']}' class='btn btn-success'>Xem chi tiết</a>
+                                                        <a href='/VegetableWeb/src/admin/user/update.php?id={$user['id']}' class='btn btn-warning mx-2'>Cập nhật</a>
+                                                        <a href='/VegetableWeb/src/admin/user/delete.php?id={$user['id']}' class='btn btn-danger'>Xóa</a>
                                                     </td>
                                                 </tr>";
                                             }
@@ -90,7 +90,7 @@
                                         <!-- Previous Page Link -->
                                         <li class="page-item <?php echo ($nowPage == 1) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/SHOP%20VEGETABLE/src/admin/user/show.php?page=<?php echo $nowPage - 1; ?>"
+                                                href="/VegetableWeb/src/admin/user/show.php?page=<?php echo $nowPage - 1; ?>"
                                                 aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
@@ -100,14 +100,14 @@
                                         <?php for ($i = 1; $i <= $sumpage; $i++): ?>
                                         <li class="page-item <?php echo ($i == $nowPage) ? 'active' : ''; ?>">
                                             <a class="page-link"
-                                                href="/SHOP%20VEGETABLE/src/admin/user/show.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                                href="/VegetableWeb/src/admin/user/show.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                                         </li>
                                         <?php endfor; ?>
 
                                         <!-- Next Page Link -->
                                         <li class="page-item <?php echo ($nowPage == $sumpage) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/SHOP%20VEGETABLE/src/admin/user/show.php?page=<?php echo $nowPage + 1; ?>"
+                                                href="/VegetableWeb/src/admin/user/show.php?page=<?php echo $nowPage + 1; ?>"
                                                 aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>

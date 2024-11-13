@@ -8,12 +8,12 @@
                     Trang chủ
                 </a>
 
-                <a class="nav-link" href="/SHOP%20VEGETABLE/src/admin/user/show.php?page=1">
+                <a class="nav-link" href="/VegetableWeb/src/admin/user/show.php?page=1">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Người dùng
                 </a>
 
-                <a class="nav-link" href="/SHOP%20VEGETABLE/src/admin/product/show.php?page=1">
+                <a class="nav-link" href="/VegetableWeb/src/admin/product/show.php?page=1">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Sản phẩm
                 </a>
