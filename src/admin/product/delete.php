@@ -22,7 +22,7 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Manage Users</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/SHOP%20VEGETABLE/src/admin/product/show.php?page=1">Trang
+                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/product/show.php?page=1">Trang
                                 chủ</a></li>
                         <li class="breadcrumb-item active">Sản phẩm</li>
                     </ol>
@@ -55,7 +55,7 @@
                                             $query = "delete from product u where u.id = " .$id;
                                             delete($query);
                                                 echo '<script type="text/javascript">
-                                                        window.location.href = "/SHOP%20VEGETABLE/src/admin/product/show.php?page=1";
+                                                        window.location.href = "/VegetableWeb/src/admin/product/show.php?page=1";
                                                       </script>';
                                                 exit();
                                         }

@@ -87,7 +87,7 @@
         const tmp = "<?php echo $image; ?>";
 
         if (tmp) {
-            const defaultImagePath = "/Shop Vegetable/img/avatar/" + tmp;
+            const defaultImagePath = "/VegetableWeb/img/avatar/" + tmp;
             $("#avatarPreview").attr("src", defaultImagePath);
             $("#avatarPreview").css({
                 "display": "block"

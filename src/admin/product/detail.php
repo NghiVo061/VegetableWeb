@@ -22,7 +22,7 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Quản lí sản phẩm</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/SHOP%20VEGETABLE/src/admin/product/show.php?page=1">Trang
+                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/product/show.php?page=1">Trang
                                 chủ</a></li>
                         <li class="breadcrumb-item active">Sản phẩm</li>
                     </ol>
@@ -60,7 +60,7 @@
                                         <li class="list-group-item">
                                             Ảnh:
                                             <?php 
-                                                $image = "/Shop Vegetable/img/product/" . $row['image'];  
+                                                $image = "/VegetableWeb/img/product/" . $row['image'];  
                                                 ?>
                                             <img src="<?php echo $image; ?>" alt="Chưa có ảnh"
                                                 style="max-height: 250px;">
@@ -68,7 +68,7 @@
                                     </ul>
                                 </div>
 
-                                <a href="/SHOP%20VEGETABLE/src/admin/product/show.php?page=1"
+                                <a href="/VegetableWeb/src/admin/product/show.php?page=1"
                                     class="btn btn-success mt-3">Trở về</a>
 
                             </div>

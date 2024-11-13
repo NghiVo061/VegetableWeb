@@ -34,7 +34,7 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Sản phẩm</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/SHOP%20VEGETABLE/src/admin/product/show.php?page=1">Trang
+                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/product/show.php?page=1">Trang
                                 chủ</a></li>
                         <li class="breadcrumb-item active">Sản phẩm</li>
                     </ol>
@@ -143,7 +143,7 @@
                 include_once '../../../include/database.php';
                 $code = connect();
                 $file = time().".jpg";
-                $tenFile = "C:/xampp/htdocs/Shop Vegetable/img/product/".$file;
+                $tenFile = "C:/xampp/htdocs/VegetableWeb/img/product/".$file;
                 $result = move_uploaded_file($_FILES['MinhTriFile']['tmp_name'], $tenFile);
                 $query =  "INSERT INTO product (name, price, details_desc, short_desc, factory, quantity, sold, image )
                     VALUES ('$name', $price, '$details_desc', '$short_desc', '$factory', $quantity, 0, '$file')";
@@ -152,7 +152,7 @@
                 mysqli_close($code);
                 if ($kq) {
                     echo '<script type="text/javascript">
-                            window.location.href = "/SHOP%20VEGETABLE/src/admin/product/show.php?page=1";
+                            window.location.href = "/VegetableWeb/src/admin/product/show.php?page=1";
                           </script>';
                     exit();
                 } else {

@@ -52,7 +52,7 @@
                 $file = "";
                 if (isset($_FILES['MinhTriFile']['tmp_name']) && !empty($_FILES['MinhTriFile']['tmp_name'])) {
                     $file = time() . ".jpg";
-                    $tenFile = "C:/xampp/htdocs/Shop Vegetable/img/product/" . $file;
+                    $tenFile = "C:/xampp/htdocs/VegetableWeb/img/product/" . $file;
                     move_uploaded_file($_FILES['MinhTriFile']['tmp_name'], $tenFile);
                 } else {
                     $file = $image;
@@ -60,7 +60,7 @@
                 $query = "UPDATE product SET name = '$name', price = $price, details_desc = '$details_desc', image = '$file', short_desc = '$short_desc', factory = '$factory', quantity = $quantity WHERE id = '$id'";
                 if (update($query)) {
                     echo '<script type="text/javascript">
-                            window.location.href = "/SHOP%20VEGETABLE/src/admin/product/show.php?page=1";
+                            window.location.href = "/VegetableWeb/src/admin/product/show.php?page=1";
                           </script>';
                     exit();
                 } else {
@@ -79,7 +79,7 @@
         const tmp = "<?php echo $image; ?>";
 
         if (tmp) {
-            const defaultImagePath = "/Shop Vegetable/img/product/" + tmp;
+            const defaultImagePath = "/VegetableWeb/img/product/" + tmp;
             $("#avatarPreview").attr("src", defaultImagePath);
             $("#avatarPreview").css({
                 "display": "block"
