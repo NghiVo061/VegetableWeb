@@ -21,7 +21,8 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Quản lí sản phẩm</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/dashboard/show.php">Trang chủ</a>
+                        </li>
                         <li class="breadcrumb-item active">Sản phẩm</li>
                     </ol>
                     <div class="mt-5">
@@ -84,7 +85,7 @@
                                 </table>
                                 <?php
                                     $query1 = "SELECT COUNT(*) AS total_rows FROM product";
-                                    $sumpage = countPage($query1);
+                                    $sumpage = countPage($query1, 6);
                                     $nowPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                                     $nowPage = max(1, $nowPage);
                                 ?>

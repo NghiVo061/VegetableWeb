@@ -21,7 +21,8 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Quản lí người dùng</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/dashboard/show.php">Trang Chủ</a>
+                        </li>
                         <li class="breadcrumb-item active">Người dùng</li>
                     </ol>
                     <div class="mt-5">
@@ -79,7 +80,7 @@
                                 </table>
                                 <?php
                                     $query1 = "SELECT COUNT(*) AS total_rows FROM user";
-                                    $sumpage = countPage($query1);
+                                    $sumpage = countPage($query1, 6);
                                     $nowPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                                     $nowPage = max(1, $nowPage);
                                 ?>

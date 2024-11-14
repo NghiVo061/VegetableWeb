@@ -14,19 +14,36 @@
         return $kq;
     }
 
-    function countPage( string $query)
+    function countPage( string $query, int $offset)
     {
         $code = connect();
         $kq = mysqli_query($code, $query);
         if ($kq) {
             $row = mysqli_fetch_assoc($kq);
             $page = (int) $row['total_rows'];
-            return  ceil($page / 6);
+            mysqli_close($code);
+            return  ceil($page / $offset);
         } else {
+            mysqli_close($code);
             return 0;
         }
     }
 
+    function countSum(string $name)
+    {
+        $code = connect();
+        $query = "SELECT COUNT(*) AS total_rows FROM ".$name;
+        $kq = mysqli_query($code, $query);
+        if ($kq) {
+            $row = mysqli_fetch_assoc($kq);
+            $num = (int) $row['total_rows'];
+            mysqli_close($code);
+            return $num;
+        } else {
+            mysqli_close($code);
+            return 0;
+        }
+    }
     function create($code, string $query)
     {
         $kq = mysqli_query($code, $query);
