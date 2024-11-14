@@ -197,13 +197,13 @@
                                 <div class="col-lg-12">
                                     <div class="row g-4">
                                     <?php
-                                            $qr = mysqli_query($code, "SELECT * FROM product");
+                                            $qr = mysqli_query($code, "SELECT * FROM product limit 8");
 
                                             while ($row = mysqli_fetch_assoc($qr)) {
-                                                $imagePath = str_replace("\u{202A}", "", $row['image']);
+                                                $imagePath = "/VegetableWeb/img/product/" . $row['image'];
                                                 ?>
                                                 <div class="col-md-6 col-lg-4 col-xl-3">
-                                                    <a href="./shop-detail.php?id=<?php echo $row['ID']; ?>" class="rounded position-relative fruite-item">
+                                                    <a href="./shop-detail.php?id=<?php echo $row['id']; ?>" class="rounded position-relative fruite-item">
                                                         <div class="fruite-img">
                                                             <img src="<?php echo $imagePath; ?>" class="img-fluid w-100 rounded-top" style="height: 200px; object-fit: cover;">
                                                         </div>
@@ -233,7 +233,7 @@
                                         <?php 
                                             $qr = mysqli_query($code, "SELECT * FROM product WHERE category = 'Vegetable'");
                                             while ($row = mysqli_fetch_assoc($qr)) {
-                                                $imagePath = str_replace("\u{202A}", "", $row['image']);
+                                                $imagePath = "/VegetableWeb/img/product/" . $row['image'];
                                                 ?>
                                                 <a href="#" class="col-md-6 col-lg-4 col-xl-3">
                                                     <div class="rounded position-relative fruite-item">
@@ -267,7 +267,7 @@
                                             $qr = mysqli_query($code, "SELECT * FROM product WHERE category = 'Fruit'");
                                             
                                             while ($row = mysqli_fetch_assoc($qr)) {
-                                                $imagePath = str_replace("\u{202A}", "", $row['image']);
+                                                $imagePath = "/VegetableWeb/img/product/" . $row['image'];
                                                 ?>
                                                 <a href="#" class="col-md-6 col-lg-4 col-xl-3">
                                                     <div class="rounded position-relative fruite-item">
@@ -350,7 +350,7 @@
 
 
         <!-- Vesitable Shop Start-->
-        <div class="container-fluid vesitable py-5">
+        <!-- <div class="container-fluid vesitable py-5">
             <div class="container py-5">
                 <h1 class="mb-0">Vitamin C</h1>
                 <div class="owl-carousel vegetable-carousel justify-content-center">
@@ -361,9 +361,9 @@
                                                     LIMIT 8;
                                                     ");
                         while ($row = mysqli_fetch_assoc($qr2)) {
-                            $imagePath = str_replace("\u{202A}", "", $row['image']);
+                            $imagePath = "/VegetableWeb/img/product/" . $row['image'];
                     ?>
-                    <a href="./shop-detail.php?id=<?php echo $row['ID']; ?>">
+                    <a href="./shop-detail.php?id=<?php echo $row['id']; ?>">
                         <div class="border border-primary rounded position-relative vesitable-item">
                             <div class="vesitable-img">
                                 <img src="<?php echo $imagePath; ?>" class="img-fluid w-100 rounded-top" alt="Product"style="height: 200px; object-fit: cover;">
@@ -382,7 +382,7 @@
                         }?>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Vesitable Shop End -->
 
 
