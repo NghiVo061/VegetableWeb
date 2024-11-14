@@ -18,7 +18,7 @@
                     Sản phẩm
                 </a>
 
-                <a class="nav-link" href="/admin/review?page=1">
+                <a class="nav-link" href="/VegetableWeb/src/admin/review/show.php?page=1">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Phản hồi
                 </a>

@@ -19,33 +19,27 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Quản lí sản phẩm</h1>
+                    <h1 class="mt-4">Đánh giá</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Sản phẩm</li>
+                        <li class="breadcrumb-item active">Đánh giá</li>
                     </ol>
                     <div class="mt-5">
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <div class="d-flex justify-content-between">
-                                    <h3>DANH SÁCH SẢN PHẨM ĐÃ DUYỆT</h3>
-                                    <a href="/VegetableWeb/src/admin/product/create.php" class="btn btn-primary">Tạo
-                                        sản phẩm
-                                        mới</a>
+                                    <h3>DANH SÁCH ĐÁNH GIÁ CỦA SẢN PHẨM</h3>
                                 </div>
-
                                 <hr />
                                 <table class=" table table-bordered table-hover" style="text-align: center;">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>Người đánh giá</th>
                                             <th>Tên sản phẩm</th>
-                                            <th>Giá sản phẩm</th>
-                                            <th>Nhà sản xuất</th>
-                                            <th>Số lượng còn lại</th>
-                                            <th>Số lượng đã bán</th>
-                                            <th>Phân loại</th>
-                                            <th>Vai trò</th>
+                                            <th>Số sao</th>
+                                            <th>Chi tiết đánh giá</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,23 +48,19 @@
                                             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                                             $page = max($page, 1);
                                             $offset = ($page - 1) * 6;
-                                            $query = "SELECT id, name, price, factory, quantity, sold, category FROM product ORDER BY id LIMIT 6 OFFSET " . $offset ;
+                                            $query = "SELECT review.id, user.name AS user_name, product.name AS product_name, review.star, review.review_detail FROM review JOIN user ON review.userId = user.id JOIN product ON review.productId = product.id ORDER BY review.id DESC LIMIT 6 OFFSET " . $offset ;
                                             $kq = view($query);
                                             if ($kq && mysqli_num_rows($kq) > 0) {
-                                            while ($product = mysqli_fetch_assoc($kq)) {
+                                            while ($review = mysqli_fetch_assoc($kq)) {
                                                 echo "
                                                 <tr>
-                                                    <th>{$product['id']}</th>
-                                                    <td>{$product['name']}</td>
-                                                    <td>{$product['price']} đ</td>
-                                                    <td>{$product['factory']}</td>
-                                                    <td>{$product['quantity']}</td>
-                                                    <td>{$product['sold']}</td>
-                                                    <td>{$product['category']}</td>
+                                                    <th>{$review['id']}</th>
+                                                    <td>{$review['user_name']}</td>
+                                                    <td>{$review['product_name']}</td>
+                                                    <td>{$review['star']}</td>
+                                                    <td>{$review['review_detail']}</td>
                                                     <td>
-                                                        <a href='/VegetableWeb/src/admin/product/detail.php?id={$product['id']}' class='btn btn-success'>Xem chi tiết</a>
-                                                        <a href='/VegetableWeb/src/admin/product/update.php?id={$product['id']}' class='btn btn-warning mx-2'>Cập nhật</a>
-                                                        <a href='/VegetableWeb/src/admin/product/delete.php?id={$product['id']}' class='btn btn-danger'>Xóa</a>
+                                                        <a href='/VegetableWeb/src/admin/review/delete.php?id={$review['id']}' class='btn btn-danger'>Xóa</a>
                                                     </td>
                                                 </tr>";
                                             }
@@ -83,7 +73,7 @@
                                     </tbody>
                                 </table>
                                 <?php
-                                    $query1 = "SELECT COUNT(*) AS total_rows FROM product";
+                                    $query1 = "SELECT COUNT(*) AS total_rows FROM review";
                                     $sumpage = countPage($query1);
                                     $nowPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                                     $nowPage = max(1, $nowPage);
@@ -95,7 +85,7 @@
                                         <!-- Previous Page Link -->
                                         <li class="page-item <?php echo ($nowPage == 1) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/product/show.php?page=<?php echo $nowPage - 1; ?>"
+                                                href="/VegetableWeb/src/admin/review/show.php?page=<?php echo $nowPage - 1; ?>"
                                                 aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
@@ -105,14 +95,14 @@
                                         <?php for ($i = 1; $i <= $sumpage; $i++): ?>
                                         <li class="page-item <?php echo ($i == $nowPage) ? 'active' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/product/show.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                                href="/VegetableWeb/src/admin/review/show.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                                         </li>
                                         <?php endfor; ?>
 
                                         <!-- Next Page Link -->
                                         <li class="page-item <?php echo ($nowPage == $sumpage) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/product/show.php?page=<?php echo $nowPage + 1; ?>"
+                                                href="/VegetableWeb/src/admin/review/show.php?page=<?php echo $nowPage + 1; ?>"
                                                 aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>
