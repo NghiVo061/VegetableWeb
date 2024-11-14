@@ -21,11 +21,12 @@
                     <hr class="dropdown-divider" />
                 </li>
                 <li>
-                    <form method="post" action="/logout">
-                        <button class="dropdown-item">Đăng xuất</button>
+                    <form method="post" action="/VegetableWeb/src/auth/logout.php">
+                        <button class="dropdown-item" name="logout">Đăng xuất</button>
                     </form>
                 </li>
             </ul>
         </li>
     </ul>
+
 </nav>

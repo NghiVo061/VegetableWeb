@@ -12,6 +12,14 @@
     <link href="../resources/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+<?php
+        session_start();
+        if (empty($_SESSION['user'])) {
+            header('Location: /VegetableWeb/src/auth/login.php');
+            exit;
+        }
+
+?>
 
 <body class="sb-nav-fixed">
     <?php include_once '../layout/header.php'?>
