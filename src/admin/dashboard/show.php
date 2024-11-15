@@ -12,14 +12,7 @@
     <link href="../resources/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-<?php
-        session_start();
-        if (empty($_SESSION['user'])) {
-            header('Location: /VegetableWeb/src/auth/login.php');
-            exit;
-        }
-
-?>
+<?php include_once '../../../include/config.php' ; ?>
 
 <body class="sb-nav-fixed">
     <?php include_once '../layout/header.php'?>
@@ -37,13 +30,20 @@
                         $countUsers = countSum("user");
                         $countProducts = countSum("product");
                         $countReview = countSum("review");
+                        $countOrders = countSum("orders");
+                        $query = "SELECT sum(p.price * od.quantity) AS total_price FROM order_detail od JOIN orders o ON od.orderId = o.id JOIN product p ON od.productId = p.id";
+                        $kq2 = view($query);
+                        $doanhThu = mysqli_fetch_assoc($kq2);
+                        $total = $doanhThu['total_price'];
+                        $total = round($total, 1);
                     ?>
                     <div class="row">
                         <div class="col-xl-4 col-md-6">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body">Số lượng người dùng: <?php echo $countUsers; ?></div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="/admin/user">Xem chi
+                                    <a class="small text-white stretched-link"
+                                        href="/VegetableWeb/src/admin/user/show.php?page=1r">Xem chi
                                         tiết</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
@@ -53,7 +53,8 @@
                             <div class="card bg-danger text-white mb-4">
                                 <div class="card-body">Số lượng sản phẩm: <?php echo $countProducts; ?></div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="/admin/product">Xem chi
+                                    <a class="small text-white stretched-link"
+                                        href="/VegetableWeb/src/admin/product/show.php?page=1">Xem chi
                                         tiết</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
@@ -63,8 +64,31 @@
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body">Số lượng đánh giá: <?php echo $countReview; ?></div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="/admin/order">Xem chi
+                                    <a class="small text-white stretched-link"
+                                        href="/VegetableWeb/src/admin/review/show.php?page=1">Xem chi
                                         tiết</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-dark text-white mb-4">
+                                <div class="card-body">Số lượng đơn đặt hàng: <?php echo $countOrders; ?></div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link"
+                                        href="/VegetableWeb/src/admin/order/show.php?page=1">Xem chi
+                                        tiết</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-dark text-white mb-4">
+                                <div class="card-body">Tổng doanh thu: <?php echo $total; ?> $</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <p class="small text-white stretched-link"></p>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
@@ -81,7 +105,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous">
+    </script>
     <script src="js/chart-area-demo.js"></script>
     <script src="js/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"

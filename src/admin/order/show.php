@@ -22,22 +22,26 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Quản lí người dùng</h1>
+                    <h1 class="mt-4">Quản lí đơn đặt hàng</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/dashboard/show.php">Trang Chủ</a>
                         </li>
-                        <li class="breadcrumb-item active">Người dùng</li>
+                        <li class="breadcrumb-item active">Đơn đặt hàng</li>
                     </ol>
                     <div class="mt-5">
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <?php
                                     include_once '../../../include/database.php';
+                                    $query = "SELECT sum(p.price * od.quantity) AS total_price FROM order_detail od JOIN orders o ON od.orderId = o.id JOIN product p ON od.productId = p.id";
+                                    $kq2 = view($query);
+                                    $doanhThu = mysqli_fetch_assoc($kq2);
+                                    $total = $doanhThu['total_price'];
+                                    $total = round($total, 1);
                                 ?>
                                 <div class="d-flex justify-content-between">
-                                    <h3>BẢNG NGƯỜI DÙNG</h3>
-                                    <a href="/VegetableWeb/src/admin/user/create.php" class="btn btn-primary">Tạo
-                                        người dùng mới</a>
+                                    <h3>BẢNG ĐƠN ĐẶT HÀNG</h3>
+                                    <p class="btn btn-primary">Tổng doanh thu: <?php echo $total ?> $</p>
                                 </div>
 
                                 <hr />
@@ -45,9 +49,12 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Email</th>
-                                            <th>Tên đầy đủ</th>
+                                            <th>Người đặt:</th>
+                                            <th>Tên người nhận:</th>
+                                            <th>Địa chỉ nhận:</th>
                                             <th>Số điện thoại</th>
+                                            <th>Tổng số tiền</th>
+                                            <th>Trạng thái</th>
                                             <th>Chức năng</th>
                                         </tr>
                                     </thead>
@@ -56,23 +63,38 @@
                                             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                                             $page = max($page, 1);
                                             $offset = ($page - 1) * 6;
-                                            $query = "SELECT id, email, name, phone FROM user ORDER BY id LIMIT 6 OFFSET " . $offset ;
+                                            $query = "SELECT o.id, u.name as 'nameOrder', o.name, o.address, o.phone, o.status FROM orders o join user u on o.userId = u.id ORDER BY id DESC LIMIT 6 OFFSET " . $offset ;
                                             $kq = view($query);
                                             if ($kq && mysqli_num_rows($kq) > 0) {
-                                            while ($user = mysqli_fetch_assoc($kq)) {
-                                                echo "
-                                                <tr>
-                                                    <th>{$user['id']}</th>
-                                                    <td>{$user['email']}</td>
-                                                    <td>{$user['name']}</td>
-                                                    <td>{$user['phone']}</td>
-                                                    <td>
-                                                        <a href='/VegetableWeb/src/admin/user/detail.php?id={$user['id']}' class='btn btn-success'>Xem chi tiết</a>
-                                                        <a href='/VegetableWeb/src/admin/user/update.php?id={$user['id']}' class='btn btn-warning mx-2'>Cập nhật</a>
-                                                        <a href='/VegetableWeb/src/admin/user/delete.php?id={$user['id']}' class='btn btn-danger'>Xóa</a>
-                                                    </td>
-                                                </tr>";
-                                            }
+                                                while ($order = mysqli_fetch_assoc($kq)) {
+                                                    $query = "SELECT sum(p.price * od.quantity) AS total_price FROM order_detail od 
+                                                              JOIN orders o ON od.orderId = o.id 
+                                                              JOIN product p ON od.productId = p.id 
+                                                              WHERE o.id = ".$order['id'];
+                                                    $kq1 = view($query);
+                                                    $orders = mysqli_fetch_assoc($kq1);
+                                                    $total = $orders['total_price'];
+                                                    $total = round($total, 1);
+
+                                                    echo "
+                                                    <tr>
+                                                        <th>{$order['id']}</th>
+                                                        <td>{$order['nameOrder']}</td>
+                                                        <td>{$order['name']}</td>
+                                                        <td>{$order['address']}</td>
+                                                        <td>{$order['phone']}</td>
+                                                        <td>$total $</td>
+                                                        <td>{$order['status']}</td>
+                                                        <td>
+                                                            <a href='/VegetableWeb/src/admin/order/detail.php?id={$order['id']}&page=1' class='btn btn-success'>Xem chi tiết</a>";
+
+                                                            if ($order['status'] != 'Đã giao') {
+                                                                echo "<a href='/VegetableWeb/src/admin/order/update.php?id={$order['id']}&page={$page}' class='btn btn-warning mx-2'>Đã giao</a>";
+                                                            }
+                                                    echo "
+                                                        </td>
+                                                    </tr>";
+                                                }
                                             } else {
                                             echo "<tr>
                                                 <td colspan='5'>Không có dữ liệu</td>
@@ -82,7 +104,7 @@
                                     </tbody>
                                 </table>
                                 <?php
-                                    $query1 = "SELECT COUNT(*) AS total_rows FROM user";
+                                    $query1 = "SELECT COUNT(*) AS total_rows FROM orders";
                                     $sumpage = countPage($query1, 6);
                                     $nowPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                                     $nowPage = max(1, $nowPage);
@@ -94,7 +116,7 @@
                                         <!-- Previous Page Link -->
                                         <li class="page-item <?php echo ($nowPage == 1) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/user/show.php?page=<?php echo $nowPage - 1; ?>"
+                                                href="/VegetableWeb/src/admin/order/show.php?page=<?php echo $nowPage - 1; ?>"
                                                 aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
@@ -104,14 +126,14 @@
                                         <?php for ($i = 1; $i <= $sumpage; $i++): ?>
                                         <li class="page-item <?php echo ($i == $nowPage) ? 'active' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/user/show.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                                href="/VegetableWeb/src/admin/order/show.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
                                         </li>
                                         <?php endfor; ?>
 
                                         <!-- Next Page Link -->
                                         <li class="page-item <?php echo ($nowPage == $sumpage) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/user/show.php?page=<?php echo $nowPage + 1; ?>"
+                                                href="/VegetableWeb/src/admin/order/show.php?page=<?php echo $nowPage + 1; ?>"
                                                 aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>

@@ -22,63 +22,77 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Đánh giá</h1>
+                    <h1 class="mt-4">Quản lí đơn đặt hàng</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/dashboard/show.php">Trang chủ</a>
+                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/dashboard/show.php">Trang Chủ</a>
                         </li>
-                        <li class="breadcrumb-item active">Đánh giá</li>
+                        <li class="breadcrumb-item"><a href="/VegetableWeb/src/admin/order/show.php">Danh sách</a>
+                        </li>
+                        <li class="breadcrumb-item active">Đơn đặt hàng</li>
                     </ol>
                     <div class="mt-5">
                         <div class="row">
                             <div class="col-12 mx-auto">
+                                <?php
+                                    include_once '../../../include/database.php';
+                                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                                ?>
                                 <div class="d-flex justify-content-between">
-                                    <h3>DANH SÁCH ĐÁNH GIÁ CỦA SẢN PHẨM</h3>
+                                    <h3>BẢNG ĐƠN ĐẶT HÀNG</h3>
+                                    <?php
+                                        $id = isset($_GET['id']) ? intval($_GET['id']) : 1;
+                                        $query = "SELECT sum(p.price * od.quantity) AS total_price FROM order_detail od JOIN orders o ON od.orderId = o.id JOIN product p ON od.productId = p.id WHERE o.id = ".$id;
+                                        $kq = view($query);
+                                        $order = mysqli_fetch_assoc($kq);
+                                        $total = $order['total_price'];
+                                        $total = round($total, 1);
+                                    ?>
+                                    <p class="btn btn-primary">Tổng doanh thu: <?php echo $total;?> $</p>
                                 </div>
+
                                 <hr />
                                 <table class=" table table-bordered table-hover" style="text-align: center;">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Người đánh giá</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Số sao</th>
-                                            <th>Chi tiết đánh giá</th>
-                                            <th>Xóa</th>
+                                            <th>STT</th>
+                                            <th>Tên sản phẩm:</th>
+                                            <th>Giá sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Số tiền:</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            include_once '../../../include/database.php';
                                             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                                             $page = max($page, 1);
                                             $offset = ($page - 1) * 6;
-                                            $query = "SELECT review.id, user.name AS user_name, product.name AS product_name, review.star, review.review_detail FROM review JOIN user ON review.userId = user.id JOIN product ON review.productId = product.id ORDER BY review.id DESC LIMIT 6 OFFSET " . $offset ;
+                                            $query = "SELECT od.id, p.name AS product_name, p.price, od.quantity,(p.price * od.quantity) AS total_price FROM order_detail od
+                                                    JOIN orders o ON od.orderId = o.id JOIN product p ON od.productId = p.id WHERE o.id = ".$id ." LIMIT 6 OFFSET " . $offset ;
                                             $kq = view($query);
+                                            $stt = 1 * $offset + 1;
                                             if ($kq && mysqli_num_rows($kq) > 0) {
-                                            while ($review = mysqli_fetch_assoc($kq)) {
+                                            while ($order = mysqli_fetch_assoc($kq)) {
                                                 echo "
                                                 <tr>
-                                                    <th>{$review['id']}</th>
-                                                    <td>{$review['user_name']}</td>
-                                                    <td>{$review['product_name']}</td>
-                                                    <td>{$review['star']}</td>
-                                                    <td>{$review['review_detail']}</td>
-                                                    <td>
-                                                        <a href='/VegetableWeb/src/admin/review/delete.php?id={$review['id']}' class='btn btn-danger'>Xóa</a>
-                                                    </td>
+                                                    <th>$stt</th>
+                                                    <td>{$order['product_name']}</td>
+                                                    <td>{$order['price']} $</td>
+                                                    <td>{$order['quantity']}</td>
+                                                    <td>{$order['total_price']} $</td>
                                                 </tr>";
+                                                $stt++;
                                             }
                                             } else {
                                             echo "<tr>
-                                                <td colspan='7'>Không có dữ liệu</td>
+                                                <td colspan='5'>Không có dữ liệu</td>
                                             </tr>";
                                             }
                                         ?>
                                     </tbody>
                                 </table>
                                 <?php
-                                    $query1 = "SELECT COUNT(*) AS total_rows FROM review";
-                                    $sumpage = countPage($query1,6);
+                                    $query1 = "SELECT COUNT(*) AS total_rows FROM order_detail od join orders o on od.orderId = o.id where o.id = ".$id;
+                                    $sumpage = countPage($query1, 6);
                                     $nowPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                                     $nowPage = max(1, $nowPage);
                                 ?>
@@ -89,24 +103,25 @@
                                         <!-- Previous Page Link -->
                                         <li class="page-item <?php echo ($nowPage == 1) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/review/show.php?page=<?php echo $nowPage - 1; ?>"
+                                                href="/VegetableWeb/src/admin/order/detail.php?id=<?php echo $id; ?>&page=<?php echo $nowPage - 1; ?>"
                                                 aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
                                         </li>
 
+
                                         <!-- Page Numbers -->
                                         <?php for ($i = 1; $i <= $sumpage; $i++): ?>
                                         <li class="page-item <?php echo ($i == $nowPage) ? 'active' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/review/show.php?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                                href="/VegetableWeb/src/admin/order/detail.php?id=<?php echo $id; ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
                                         </li>
                                         <?php endfor; ?>
 
                                         <!-- Next Page Link -->
                                         <li class="page-item <?php echo ($nowPage == $sumpage) ? 'disabled' : ''; ?>">
                                             <a class="page-link"
-                                                href="/VegetableWeb/src/admin/review/show.php?page=<?php echo $nowPage + 1; ?>"
+                                                href="/VegetableWeb/src/admin/order/detail.php?id=<?php echo $id; ?>&page=<?php echo $nowPage + 1; ?>"
                                                 aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
                                             </a>
@@ -114,6 +129,7 @@
                                     </ul>
                                 </nav>
                                 <?php endif; ?>
+
                             </div>
 
                         </div>
@@ -121,13 +137,15 @@
                     </div>
                 </div>
             </main>
-            <?php
-            include_once '../layout/footer.php'; ?>
+            <?php 
+            include_once '../layout/footer.php'
+            ?>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
+    </script>\
     <script src="../resources/js/scripts.js"></script>
+
 
 </body>
 

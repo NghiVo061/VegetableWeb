@@ -15,26 +15,19 @@
     session_start();
 
     if (isset($_SESSION['user'])) {
-        header('Location: /VegetableWeb/src/admin/dashboard/show.php');
+        header('Location: /VegetableWeb/src/user/index.php');
         exit;
     }
     $cookie_name = 'remember_user';
-    if (empty($_COOKIE[$cookie_name])) {
-        // Parse cookie và lấy thông tin người dùng
+    if (isset($_COOKIE[$cookie_name])) {
         parse_str($_COOKIE[$cookie_name], $arr);
-    
         // Kiểm tra nếu cookie hợp lệ
         if (isset($arr['usr'])) {
             $usr = $arr['usr'];
             $_SESSION['user'] = $usr; // Lưu thông tin vào session
-    
-            // Chuyển hướng người dùng đến dashboard
-            header('Location: /VegetableWeb/src/admin/dashboard/show.php');
+            header('Location: /VegetableWeb/src/user/index.php');
             exit;
-        } else {
-            // Nếu cookie không hợp lệ, xóa cookie
-            setcookie($cookie_name, '', time() - 3600, '/'); // Xóa cookie
-        }
+        } 
     }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = [];
@@ -59,13 +52,11 @@
                     {
                         $_SESSION['user'] = $username;
                         if (isset($_POST['check']) && $_POST['check'] == '1')
-                        {
-                            
+                        {  
                             $cookie_time = (3600 * 24 * 30);
                             setcookie($cookie_name, 'usr=' . $username , time() + $cookie_time, '/');
-
                         }
-                        header('Location: /VegetableWeb/src/admin/dashboard/show.php');
+                        header('Location: /VegetableWeb/src/user/index.php');
                         exit;
                     } else {
                         $error['password'] = 'Password không đúng';
@@ -91,7 +82,6 @@
                                 <div class="card-body">
                                     <form method="POST" action="">
                                         <div class="form-floating mb-3">
-
                                             <input
                                                 class="form-control <?php echo !empty($error['username']) ? 'is-invalid' : ''; ?>"
                                                 id="inputEmail" type="text" placeholder="" name="username"
@@ -121,7 +111,8 @@
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="register.html">Bạn chưa có tài khoản? Đăng kí!</a></div>
+                                    <div class="small"><a href="/VegetableWeb/src/auth/register.php">Bạn chưa có tài
+                                            khoản? Đăng kí!</a></div>
                                 </div>
                             </div>
                         </div>

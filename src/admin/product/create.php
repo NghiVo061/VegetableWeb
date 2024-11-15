@@ -23,6 +23,9 @@
     });
     </script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <?php
+        include_once '../../../include/config.php';
+    ?>
 </head>
 
 <body class="sb-nav-fixed">
@@ -147,7 +150,6 @@
                 $result = move_uploaded_file($_FILES['MinhTriFile']['tmp_name'], $tenFile);
                 $query =  "INSERT INTO product (name, price, details_desc, short_desc, factory, quantity, sold, image )
                     VALUES ('$name', $price, '$details_desc', '$short_desc', '$factory', $quantity, 0, '$file')";
-                echo $query;
                 $kq = mysqli_query($code, $query);
                 mysqli_close($code);
                 if ($kq) {
@@ -155,9 +157,7 @@
                             window.location.href = "/VegetableWeb/src/admin/product/show.php?page=1";
                           </script>';
                     exit();
-                } else {
-                    echo "Error: " . mysqli_error($code);
-                }
+                } 
             }
             ?>
         </div>

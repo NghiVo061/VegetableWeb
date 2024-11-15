@@ -24,7 +24,9 @@
         });
     });
     </script>
-
+    <?php
+        include_once '../../../include/config.php';
+    ?>
 </head>
 
 <body class="sb-nav-fixed">
@@ -34,8 +36,9 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Manage Users</h1>
+                    <h1 class="mt-4">Quản lí người dùng</h1>
                     <?php
+                         include_once '../../../include/database.php';
                         if(!empty($_POST))
                         {
                             $email = isset($_POST['email']) ? $_POST['email'] : '';
@@ -46,7 +49,13 @@
                             $error = [];
                             if(empty($_POST['email']))
                             {
-                                $error['email'] = 'Email không được để trông';
+                                $error['email']['required'] = 'Email không được để trông';
+                            }
+                            else{
+                                $query = "select id from user where email = '". $_POST['email']. "'";
+                                $kq = view($query);
+                                if (mysqli_num_rows($kq) > 0)
+                                    $error['email']['invalid'] = 'Email đã tồn tại';
                             }
 
                             if(empty($_POST['password']))
@@ -92,7 +101,8 @@
                                         <input type="email"
                                             class="form-control <?php echo !empty($error['email']) ? 'is-invalid' : ''; ?>"
                                             name="email" value="<?php echo isset($email) ? $email : ''; ?>" />
-                                        <?php echo !empty($error['email']) ? '<div class="invalid-feedback">' . $error['email'] . '</div>' : ''; ?>
+                                        <?php echo !empty($error['email']['required']) ? '<div class="invalid-feedback">' . $error['email']['required'] . '</div>' : ''; ?>
+                                        <?php echo !empty($error['email']['invalid']) ? '<div class="invalid-feedback">' . $error['email']['invalid'] . '</div>' : ''; ?>
                                     </div>
 
                                     <div class="mb-3 col-12 col-md-6">
@@ -150,8 +160,7 @@
             <?php 
             include_once '../layout/footer.php';
 
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                include_once '../../../include/database.php';
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($error)) {
                 $code = connect();
                 $file = time().".jpg";
                 $tenFile = "C:/xampp/htdocs/VegetableWeb/img/avatar/".$file;

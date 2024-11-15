@@ -9,7 +9,9 @@
     <meta name="author" content="MT" />
     <title>Delete User</title>
     <link href="../resources/css/styles.css" rel="stylesheet" />
-
+    <?php
+        include_once '../../../include/config.php';
+    ?>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
