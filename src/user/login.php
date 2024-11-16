@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
+=======
+<?php session_start(); ?>
+>>>>>>> 3281c6f (code cart)
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -39,6 +43,7 @@
                                             </div>
                                         </form>
 
+<<<<<<< HEAD
                                         <?php
                                         session_start();
 
@@ -58,6 +63,19 @@
                                         }
                                         ?>
 
+=======
+                                        <?php // Gọi session trước khi gửi dữ liệu nào khác đến trình duyệt
+
+                                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                                $_SESSION['email'] = $_POST['email'] ?? null;
+                                                $_SESSION["password"] = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+                                                header("Location: index.php");
+                                                // header("location: cart.php");
+                                                exit(); // Dừng script sau khi chuyển hướng
+                                            }
+                                            ?>
+>>>>>>> 3281c6f (code cart)
                                     </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="register.php">Need an account? Sign up!</a></div>

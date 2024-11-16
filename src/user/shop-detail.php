@@ -106,6 +106,7 @@
                                             <h4 class="fw-bold mb-3"><?php echo $row['name']; ?></h4>
                                             <p class="mb-3">Category: <?php echo $row['category']; ?></p>
                                             <h5 class="fw-bold mb-3"><?php echo $row['price']; ?> $</h5>
+<<<<<<< HEAD
                                             <div class="d-flex mb-4">
                                                 <i class="fa fa-star text-secondary"></i>
                                                 <i class="fa fa-star text-secondary"></i>
@@ -134,6 +135,33 @@
                                         <?php
                                     } else {
                                         echo "Product not found!";
+=======
+                                            <p class="mb-3"> <span class="fw-bold">Sold: </span><?php echo $row['sold'] . "kg"; ?></p>
+                                            <p class="mb-4"><?php echo $row['short_desc']; ?></p>
+                                            <form action="./cart.php" method="post">
+                                                <div class="input-group quantity mb-5" style="width: 100px;">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                            <i class="fa fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                    <input type="text" name="quantity" class="form-control form-control-sm text-center border-0" value="1" min="1" max="<?php echo $row['quantity']; ?>">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="productId" value="<?php echo $row['id']; ?>">
+                                                <button type="submit" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <?php
+                                    } else {
+                                        echo "Product not found";
+>>>>>>> 3281c6f (code cart)
                                     }
                                 } else {
                                     echo "No product ID specified!";
