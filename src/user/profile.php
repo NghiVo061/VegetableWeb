@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php include("connect.php")?>
 
 <head>
     <meta charset="utf-8" />
@@ -8,15 +9,19 @@
     <meta name="description" content="MT" />
     <meta name="author" content="MT" />
     <title>Cập nhật người dùng</title>
-    <link href="../resources/css/styles.css" rel="stylesheet" />
+    <link href="../admin/resources/css/styles.css" rel="stylesheet" />
     <?php
-        include_once '../../../include/config.php';
+        include_once '../../include/config.php';
     ?>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <?php
-        include_once '../../../include/database.php';
-        $id = $_GET['id'];
+        include_once '../../include/database.php';
+        $username = $_GET['username'];
+        $query = "select id from user where email = '$username'";
+        $kq = view($query);
+        $userId = mysqli_fetch_assoc($kq);
+        $id = $userId['id'];
         $query = "select * from user where id = ".$id;
         $kq = view($query);
         $user = mysqli_fetch_assoc($kq);
@@ -69,7 +74,7 @@
                 $query = "UPDATE user SET email = '$email', name = '$fullname', phone = '$phone', image = '$file' WHERE id = '$id'";
                 if (update($query)) {
                     echo '<script type="text/javascript">
-                            window.location.href = "/VegetableWeb/src/admin/user/show.php?page=1";
+                            window.location.href = "/VegetableWeb/src/user/index.php";
                           </script>';
                     exit();
                 } else {
@@ -110,17 +115,10 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <?php include_once '../layout/header.php' ?>
     <div id="layoutSidenav">
-        <?php include_once '../layout/sidebar.php' ?>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Quản lí người dùng</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="/admin">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Người dùng</li>
-                    </ol>
                     <div class="mt-5">
                         <div class="row">
                             <div class="col-md-6 col-12 mx-auto">
@@ -176,7 +174,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
-    <script src="../resources/js/scripts.js"></script>
+    <script src="../admin/resources/js/scripts.js"></script>
 </body>
 
 </html>

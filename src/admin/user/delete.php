@@ -53,8 +53,32 @@
                                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             include_once '../../../include/database.php';
                                             $id = $_POST['id'];
+                                            $code = connect();
+                                            $query = "select id from cart where userId = $id";
+                                            $kq = mysqli_query($code, $query);
+                                            $row = mysqli_fetch_assoc($kq);
+                                            $num = $row['id'];
+                                            $query = "delete from cart_detail where cartId = " .$num;
+                                            mysqli_query($code, $query);
+                                            $query = "delete from cart where userId = " .$id;
+                                            mysqli_query($code, $query);
+
+                                            $query = "select id from orders where userId = $id";
+                                            $kq = mysqli_query($code, $query);
+                                            while($row = mysqli_fetch_assoc($kq))
+                                            {
+                                                $num = $row['id'];
+                                                $query = "delete from order_detail where orderId = " .$num;
+                                                mysqli_query($code, $query);
+                                                $query = "delete from orders where id = $num";
+                                                mysqli_query($code, $query);
+                                            }
+                                            
+                                            $query = "delete from review u where userId = " .$id;
+                                            mysqli_query($code, $query);
                                             $query = "delete from user u where u.id = " .$id;
-                                            delete($query);
+                                            mysqli_query($code, $query);
+                                            mysqli_close($code);
                                                 echo '<script type="text/javascript">
                                                         window.location.href = "/VegetableWeb/src/admin/user/show.php?page=1";
                                                       </script>';

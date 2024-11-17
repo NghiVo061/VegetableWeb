@@ -46,14 +46,14 @@
     }
     function create($code, string $query)
     {
-        $kq = mysqli_query($code, $query);
+        mysqli_query($code, $query);
         mysqli_close($code);
     }
 
     function delete(string $query)
     {
         $code = connect();
-        $kq = mysqli_query($code, $query);
+        mysqli_query($code, $query);
         mysqli_close($code);
     }
 

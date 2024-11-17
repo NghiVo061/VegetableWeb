@@ -50,6 +50,7 @@
                             $short_desc = isset($_POST['short_desc']) ? $_POST['short_desc'] : '';
                             $quantity= isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
                             $factory= isset($_POST['factory']) ? $_POST['factory'] : '';
+                            $category= isset($_POST['category']) ? $_POST['category'] : '';
                             $error = [];
                             if(empty($_POST['name']))
                             {
@@ -120,6 +121,13 @@
                                         </select>
                                     </div>
                                     <div class="mb-3 col-12 col-md-6">
+                                        <label class="form-label">Thể loại:</label>
+                                        <select class="form-select" name="category">
+                                            <option value="Hoa quả">Hoa quả</option>
+                                            <option value="Ray">Rau</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col-12 col-md-6">
                                         <label for="avatarFile" class="form-label">Hình ảnh:</label>
                                         <input class="form-control" type="file" id="avatarFile"
                                             accept=".png, .jpg, .jpeg" name="MinhTriFile" />
@@ -148,8 +156,8 @@
                 $file = time().".jpg";
                 $tenFile = "C:/xampp/htdocs/VegetableWeb/img/product/".$file;
                 $result = move_uploaded_file($_FILES['MinhTriFile']['tmp_name'], $tenFile);
-                $query =  "INSERT INTO product (name, price, details_desc, short_desc, factory, quantity, sold, image )
-                    VALUES ('$name', $price, '$details_desc', '$short_desc', '$factory', $quantity, 0, '$file')";
+                $query =  "INSERT INTO product (name, price, details_desc, short_desc, factory, quantity, sold, image, category )
+                    VALUES ('$name', $price, '$details_desc', '$short_desc', '$factory', $quantity, 0, '$file', '$category')";
                 $kq = mysqli_query($code, $query);
                 mysqli_close($code);
                 if ($kq) {

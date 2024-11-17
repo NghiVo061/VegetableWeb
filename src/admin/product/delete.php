@@ -55,7 +55,13 @@
                                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             include_once '../../../include/database.php';
                                             $id = $_POST['id'];
-                                            $query = "delete from product u where u.id = " .$id;
+                                            $query = "delete from order_detail where productId = $id";
+                                            delete($query);
+                                            $query = "delete from cart_detail where productId = $id";
+                                            delete($query);
+                                            $query = "delete from review where productId = $id";
+                                            delete($query);
+                                            $query = "delete from product u where id = $id";
                                             delete($query);
                                                 echo '<script type="text/javascript">
                                                         window.location.href = "/VegetableWeb/src/admin/product/show.php?page=1";

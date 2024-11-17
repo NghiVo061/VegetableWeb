@@ -1,7 +1,7 @@
 <div class="container-fluid fixed-top">
     <div class="container px-0">
         <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="/" class="navbar-brand">
+            <a href="/VegetableWeb/src/user/index.php" class="navbar-brand">
                 <h1 class="text-primary display-6">FreshMarket</h1>
             </a>
             <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -10,11 +10,11 @@
             </button>
             <div class="collapse navbar-collapse bg-white justify-content-between mx-5" id="navbarCollapse">
                 <div class="navbar-nav ">
-                    <a href="index.php" class="nav-item nav-link active">Trang Chủ</a>
-                    <a href="shop.php" class="nav-item nav-link">Sản phẩm</a>
+                    <a href="/VegetableWeb/src/user/index.php" class="nav-item nav-link active">Trang Chủ</a>
+                    <a href="/VegetableWeb/src/user/shop.php" class="nav-item nav-link">Sản phẩm</a>
                 </div>
                 <div class="d-flex m-3 me-0">
-                    <?php 
+                    <?php
                     $cookie_name = 'remember_user';
                     if (isset($_SESSION['user']) || isset($_COOKIE[$cookie_name])): ?>
                     <?php
@@ -44,7 +44,7 @@
                     ?>
                     <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"><a
                             href="/search" class="fas fa-search text-primary"></a></button>
-                    <a href="/cart" class="position-relative me-4 my-auto">
+                    <a href="/VegetableWeb/src/user/cart/show.php" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span
                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
@@ -67,9 +67,11 @@
 
                             <li><a class="dropdown-item" href="/VegetableWeb/src/admin/dashboard/show.php">Trang dành
                                     cho Admin</a></li>
-                            <li><a class="dropdown-item" href="/">Quản
+                            <li><a class="dropdown-item"
+                                    href="/VegetableWeb/src/user/profile.php?username=user1@gmail.com">Quản
                                     lý tài khoản</a></li>
-                            <li><a class="dropdown-item" href="/Order-History">Lịch sử mua hàng</a>
+                            <li><a class="dropdown-item" href="/VegetableWeb/src/user/cart/historyOrder.php">Lịch sử mua
+                                    hàng</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
