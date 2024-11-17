@@ -44,6 +44,7 @@
 
     <!-- Navbar start -->
     <?php
+        session_start();
         include_once 'layout/header.php';
     ?>
     <!-- Navbar End -->
