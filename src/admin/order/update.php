@@ -1,6 +1,8 @@
 <?php
     include_once '../../../include/config.php';
     include_once '../../../include/database.php';
+    $username = $_SESSION['user'];
+    role($username);
     if(isset($_GET['page']))
     {
         $id = $_GET['id'];

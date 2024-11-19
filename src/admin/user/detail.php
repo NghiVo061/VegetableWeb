@@ -11,6 +11,9 @@
     <link href="../resources/css/styles.css" rel="stylesheet" />
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -31,7 +34,6 @@
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <?php
-                                    include_once '../../../include/database.php';
                                     $id = $_GET['id'];
                                     $query = "select u.id, u.email, u.name, u.phone, u.image from user u where u.id = ".$id;
                                     $kq = view( $query);

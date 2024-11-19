@@ -26,6 +26,9 @@
     </script>
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
 </head>
 
@@ -38,7 +41,6 @@
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Quản lí người dùng</h1>
                     <?php
-                         include_once '../../../include/database.php';
                         if(!empty($_POST))
                         {
                             $email = isset($_POST['email']) ? $_POST['email'] : '';

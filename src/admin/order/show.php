@@ -12,6 +12,9 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
 </head>
 
@@ -32,7 +35,6 @@
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <?php
-                                    include_once '../../../include/database.php';
                                     $query = "SELECT sum(p.price * od.quantity) AS total_price FROM order_detail od JOIN orders o ON od.orderId = o.id JOIN product p ON od.productId = p.id";
                                     $kq2 = view($query);
                                     $doanhThu = mysqli_fetch_assoc($kq2);

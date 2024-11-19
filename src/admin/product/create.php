@@ -25,6 +25,9 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
 </head>
 
@@ -151,7 +154,6 @@
             include_once '../layout/footer.php';
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                include_once '../../../include/database.php';
                 $code = connect();
                 $file = time().".jpg";
                 $tenFile = "C:/xampp/htdocs/VegetableWeb/img/product/".$file;

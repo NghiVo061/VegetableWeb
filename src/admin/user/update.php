@@ -11,11 +11,13 @@
     <link href="../resources/css/styles.css" rel="stylesheet" />
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <?php
-        include_once '../../../include/database.php';
         $id = $_GET['id'];
         $query = "select * from user where id = ".$id;
         $kq = view($query);

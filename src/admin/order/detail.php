@@ -12,6 +12,9 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
 </head>
 
@@ -34,7 +37,6 @@
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <?php
-                                    include_once '../../../include/database.php';
                                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                                 ?>
                                 <div class="d-flex justify-content-between">

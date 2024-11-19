@@ -13,6 +13,9 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
 </head>
 
@@ -53,7 +56,6 @@
 
                                 <?php
                                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                                            include_once '../../../include/database.php';
                                             $id = $_POST['id'];
                                             $query = "delete from review u where u.id = " .$id;
                                             delete($query);

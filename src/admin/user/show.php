@@ -12,6 +12,9 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
 </head>
 
@@ -31,9 +34,6 @@
                     <div class="mt-5">
                         <div class="row">
                             <div class="col-12 mx-auto">
-                                <?php
-                                    include_once '../../../include/database.php';
-                                ?>
                                 <div class="d-flex justify-content-between">
                                     <h3>BẢNG NGƯỜI DÙNG</h3>
                                     <a href="/VegetableWeb/src/admin/user/create.php" class="btn btn-primary">Tạo

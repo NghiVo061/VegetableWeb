@@ -12,6 +12,9 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
 </head>
 
@@ -48,7 +51,6 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            include_once '../../../include/database.php';
                                             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                                             $page = max($page, 1);
                                             $offset = ($page - 1) * 6;

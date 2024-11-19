@@ -13,8 +13,10 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <?php
-        include_once '../../../include/database.php';
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
         $id = $_GET['id'];
         $query = "select * from product where id = ".$id;
         $kq = view($query);

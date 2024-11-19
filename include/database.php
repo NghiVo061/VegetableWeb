@@ -64,4 +64,19 @@
         mysqli_close($code);
         return $kq;
     }
+
+    function role(string $username)
+    {
+        $code = connect();
+        $query = "select r.id from user u join role r on u.roleID = r.id where u.email = '$username'";
+        $kq = mysqli_query($code, $query);
+        $row = mysqli_fetch_assoc($kq);
+        $role =  (int) $row['id'];
+        mysqli_close($code);
+        if($role == 1)
+        {
+            header('Location: /VegetableWeb/src/admin/deny.php');
+            exit;
+        }
+    }
 ?>

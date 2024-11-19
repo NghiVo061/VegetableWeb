@@ -11,6 +11,9 @@
     <link href="../resources/css/styles.css" rel="stylesheet" />
     <?php
         include_once '../../../include/config.php';
+        include_once '../../../include/database.php';
+        $username = $_SESSION['user'];
+        role($username);
     ?>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -51,7 +54,6 @@
 
                                 <?php
                                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                                            include_once '../../../include/database.php';
                                             $id = $_POST['id'];
                                             $code = connect();
                                             $query = "select id from cart where userId = $id";
