@@ -34,42 +34,16 @@
 
 <body>
 
+
     <!-- Spinner Start -->
     <div id="spinner"
         class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
     <!-- Spinner End -->
-
-
-    <!-- Navbar start -->
-    <?php
-        session_start();
-        include_once 'layout/header.php';
-    ?>
-    <!-- Navbar End -->
-
-
     <!-- Modal Search Start -->
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex align-items-center">
-                    <form class="input-group w-75 mx-auto d-flex" method="get" action="./shop.php">
-                        <input type="text" class="form-control p-3" placeholder="keywords"
-                            aria-describedby="search-icon-1" name="text-search">
-                        <input type="submit" class="input-group-text" value="Search" name="input-search">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Search End -->
 
+    <!-- Modal Search End -->
 
     <!-- Single Page Header start -->
     <div class="container-fluid page-header py-5">
@@ -80,8 +54,21 @@
         </ol>
     </div>
     <!-- Single Page Header End -->
-
-
+    <?php
+        session_start();
+        include_once 'layout/header.php';
+    ?>
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+            <div class="modal-body d-flex align-items-center">
+                <form class="input-group w-75 mx-auto d-flex" method="get" action="./shop.php">
+                    <input type="text" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"
+                        name="text-search">
+                    <input type="submit" class="input-group-text" value="Search" name="input-search">
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Fruits Shop Start-->
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
@@ -94,19 +81,19 @@
                         <div class="col-6"></div>
                         <div class="col-xl-3">
                             <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                <label for="fruits">Price Sorting:</label>
+                                <label for="fruits">Sắp xếp giá:</label>
                                 <form id="fruitform" method="get">
                                     <select id="fruits" name="sort" class="border-0 form-select-sm bg-light me-3"
                                         form="fruitform" onchange="this.form.submit()">
                                         <option value="default"
                                             <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'default') ? 'selected' : ''; ?>>
-                                            Default</option>
+                                            Mặc định</option>
                                         <option value="low_to_high"
                                             <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'low_to_high') ? 'selected' : ''; ?>>
-                                            Price: Low to High</option>
+                                            Giá: Thấp tới cao</option>
                                         <option value="high_to_low"
                                             <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'high_to_low') ? 'selected' : ''; ?>>
-                                            Price: High to Low</option>
+                                            Giá: Cao tới thấp</option>
                                     </select>
                                 </form>
                             </div>

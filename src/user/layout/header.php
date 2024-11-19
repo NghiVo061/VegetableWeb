@@ -4,10 +4,6 @@
             <a href="/VegetableWeb/src/user/index.php" class="navbar-brand">
                 <h1 class="text-primary display-6">FreshMarket</h1>
             </a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars text-primary"></span>
-            </button>
             <div class="collapse navbar-collapse bg-white justify-content-between mx-5" id="navbarCollapse">
                 <div class="navbar-nav ">
                     <a href="/VegetableWeb/src/user/index.php" class="nav-item nav-link active">Trang Chủ</a>
@@ -42,8 +38,6 @@
                         else
                             $sum = 0;
                     ?>
-                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"><a
-                            href="/search" class="fas fa-search text-primary"></a></button>
                     <a href="/VegetableWeb/src/user/cart/show.php" class="position-relative me-4 my-auto">
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span
