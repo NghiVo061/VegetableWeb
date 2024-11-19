@@ -94,8 +94,8 @@
                                         $date = $order['date'];
                         ?>
                         <tr>
-                            <td colspan="3" style="color: #0f60f5;">Mã đặt đơn = <?php echo $orderId;?></td>
-                            <td colspan="1" style="color: yellow"><?php echo $date?></td>
+                            <td colspan="3" style="color: #0f60f5;">Mã đặt đơn: <?php echo $orderId;?></td>
+                            <td colspan="1" style="color: green"><?php echo $date?></td>
                             <td colspan="1" style="color:red"><?php echo $order['status']?></td>
                             <?php 
                                  $query = "SELECT p.image, p.name, p.price, od.quantity,(p.price * od.quantity) AS total_price FROM order_detail od

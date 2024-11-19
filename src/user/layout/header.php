@@ -62,7 +62,7 @@
                             <li><a class="dropdown-item" href="/VegetableWeb/src/admin/dashboard/show.php">Trang dành
                                     cho Admin</a></li>
                             <li><a class="dropdown-item"
-                                    href="/VegetableWeb/src/user/profile.php?username=user1@gmail.com">Quản
+                                    href="/VegetableWeb/src/user/profile.php?username='<?php echo $username?>'">Quản
                                     lý tài khoản</a></li>
                             <li><a class="dropdown-item" href="/VegetableWeb/src/user/cart/historyOrder.php">Lịch sử mua
                                     hàng</a>
